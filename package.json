@@ -1,0 +1,26 @@
+{
+  "name": "quiz-player",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.2.2",
+    "antd": "^4.5.1",
+    "cloudinary-react": "1.6.2",
+    "next": "9.4.4",
+    "react": "16.13.1",
+    "react-circular-progressbar": "2.0.3",
+    "react-dom": "16.13.1",
+    "react-loading-skeleton": "2.1.1",
+    "react-render-html": "0.6.0",
+    "react-time-ago": "6.0.0",
+    "sass": "1.26.10",
+    "semantic-ui-css": "2.4.1",
+    "semantic-ui-react": "1.0.0",
+    "styled-components": "^5.1.1"
+  }
+}
