@@ -1,7 +1,7 @@
 import "styled-components";
 import styled from "styled-components";
-import { Button, Alert, Card, Radio, Checkbox } from "antd";
-import { Header } from "semantic-ui-react";
+import { Alert, Card, Radio } from "antd";
+import { Header, Checkbox, Button } from "semantic-ui-react";
 
 export const SecStyled = styled.section`
   width: 100%;
@@ -38,10 +38,10 @@ export const SecStyled = styled.section`
   }
 `;
 export const BtnStyled = styled(Button)`
-  background: white;
+  background: #ff0045 !important;
   border-radius: 5px;
   font-size: 15px;
-  color: black;
+  color: white !important;
   width: auto;
 `;
 export const AlertStyled = styled(Alert)`
@@ -62,27 +62,28 @@ export const CardStyled = styled(Card)`
   margin: 20px;
   box-shadow: 0px 0px 10px 1px #aaa;
   border-radius: 5px;
-  background: #080c23;
+  background: #fff;
   border: 0px none;
 `;
 
 export const QuestionStyled = styled.div`
   margin-top: 5px;
-  color: white;
+  /* color: white;
   * {
     color: white;
-  }
+  } */
   img {
     max-width: 100%;
   }
   margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
 `;
 
 export const QuestionNo = styled.small`
   border-bottom: 1px solid #ddd;
   display: block;
   padding-bottom: 5px;
-  color: white;
+  /* color: white; */
 `;
 
 export const RadioStyled = styled(Radio)`
@@ -105,23 +106,37 @@ export const RadioStyled = styled(Radio)`
 
 export const CheckboxStyled = styled(Checkbox)`
   display: block;
+  width: 100%;
   margin-left: 0px !important;
-  margin: 15px;
+  margin: 5px;
   padding: 15px;
   border-radius: 3px;
-  .ant-checkbox-inner {
-    padding: 8px;
+  border: 1px solid #87d068;
+  transition: 0.3s ease 0s;
+  &:hover {
+    transform: scale(1.005);
+    box-shadow: 0px 0px 13px 1px #ddd;
   }
-  background-color: #141d52;
-  color: white;
-  display: flex;
-  align-items: flex-start;
-  .ant-checkbox {
-    margin-top: 3px;
-  }
-  * {
-    color: white;
-  }
+
+  ${(props) =>
+    props.status === "correct"
+      ? `label { 
+          &:after {
+        background: red !important;
+        color: white !important;
+        transform: scale(0.666) !important;
+        opacity: 1;
+      }
+  }`
+      : props.status === "incorrect"
+      ? `label { &:after {
+          background: red !important;
+          color: white !important;
+          transform: scale(0.666) !important;
+          opacity: 1;
+      }
+  }`
+      : ``}
 `;
 
 export const AnswerPanelStyled = styled.div`

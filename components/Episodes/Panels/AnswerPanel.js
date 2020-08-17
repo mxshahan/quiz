@@ -1,52 +1,99 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SingleOption from "./SingleOption";
 import { Radio, Checkbox } from "antd";
 import { RadioStyled, CheckboxStyled, AnswerPanelStyled } from "./Styled";
+import CustomCheckbox from "./CustomCheckbox";
+import renderHTML from "react-render-html";
 
-const AnswerPanel = ({ type, answers, ...props }) => {
-  console.log(answers);
+const AnswerPanel = ({
+  type,
+  answers,
+  expectedAnswer,
+  questionNo,
+  correctAnswer,
+  answerChecked,
+}) => {
+  const [checked, setChecked] = useState([]);
+
+  useEffect(() => {
+    setChecked([]);
+  }, [questionNo]);
+
+  const handleChange = (index) => (value) => {
+    if (answerChecked) return;
+    if (expectedAnswer === 1) {
+      setChecked([index]);
+    } else {
+      const i = checked.indexOf(index);
+      if (i !== -1) {
+        checked.splice(i, 1);
+      } else {
+        if (checked.length < expectedAnswer) {
+          checked.push(index);
+        }
+      }
+      setChecked([...checked]);
+    }
+  };
+
+  const markDisable = (index) => {
+    return (
+      expectedAnswer > 1 &&
+      !checked.includes(index) &&
+      checked.length === expectedAnswer
+    );
+  };
+
+  const checkCorrect = (index) => {
+    if (Array.isArray(correctAnswer)) {
+      if (checked.includes(index)) {
+        if (correctAnswer.includes(index)) {
+          return "correct";
+        } else {
+          return "incorrect";
+        }
+      }
+    }
+
+    return "incorrect";
+  };
+
+  console.log(correctAnswer);
+
   return (
     <AnswerPanelStyled>
+      {expectedAnswer > 1 && (
+        <div style={{ marginBottom: 10 }}>Choose {expectedAnswer}</div>
+      )}
       {Array.isArray(answers) &&
-        answers.map((ans) => {
+        answers.map((ans, index) => {
           const answer = JSON.parse(ans);
+          const status = checkCorrect(index);
           return (
-            <CheckboxStyled>
-              <span
-                dangerouslySetInnerHTML={{ __html: answer.answer_text }}
-              ></span>
-            </CheckboxStyled>
+            // <CheckboxStyled
+            //   key={ans}
+            //   radio={expectedAnswer === 1}
+            //   name="answer"
+            //   label={answer.answer_text}
+            //   value={index}
+            //   onChange={handleChange(index)}
+            //   checked={checked.includes(index)}
+            //   disabled={markDisable(index)}
+            //   status={status}
+            // />
+            <CustomCheckbox
+              key={ans}
+              status={status}
+              label={renderHTML(answer.answer_text)}
+              onChange={handleChange(index)}
+              checked={checked.includes(index)}
+              disabled={markDisable(index)}
+              answerChecked={answerChecked}
+            />
           );
         })}
-
-      <CheckboxStyled>
-        Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in
-        laying out print, graphic or web designs. The passage is attributed to
-        an unknown typesetter in the
-      </CheckboxStyled>
-      <CheckboxStyled>
-        Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in
-        laying out print, graphic or web designs. The passage is attributed to
-        an unknown typesetter in the
-      </CheckboxStyled>
     </AnswerPanelStyled>
   );
-  // return (
-  //   <AnswerPanelStyled>
-  //     <Radio.Group onChange={props.onChange}>
-  //       <RadioStyled value={1}>
-  //         Lorem ipsum, or lipsum as it is sometimes known, is dummy text used
-  //         in laying out print, graphic or web designs. The passage is
-  //         attributed to an unknown typesetter in the 15th century who is
-  //         thought to have scrambled parts of Cicero's De Finibus Bonorum et
-  //         Malorum for use in a type specimen book.
-  //       </RadioStyled>
-  //       <RadioStyled value={2}>This is answer</RadioStyled>{" "}
-  //       <RadioStyled value={3}>This is answer</RadioStyled>{" "}
-  //       <RadioStyled value={4}>This is answer</RadioStyled>
-  //     </Radio.Group>
-  //   </AnswerPanelStyled>
-  // );
 };
 
 const radioStyle = {

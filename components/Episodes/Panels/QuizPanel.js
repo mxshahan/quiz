@@ -1,5 +1,5 @@
 import React, { memo, useState } from "react";
-import { Row, Col, Card } from "antd";
+import { Row, Col, Card, Progress } from "antd";
 import {
   SectionStyled,
   AlertStyled,
@@ -20,7 +20,7 @@ const QuizPanel = ({
   percentAnswered,
   loadingAnswer,
   score,
-  nextQuestion,
+  // nextQuestion,
   finishQuiz,
   resetQuiz,
   closeQuiz,
@@ -36,14 +36,32 @@ const QuizPanel = ({
 }) => {
   const [quiz, setQuiz] = useState(data.quiz);
   const [questionNo, setQuestionNo] = useState(1);
+
+  const nextQuestion = () => {
+    if (questionNo < quiz.questions.length) {
+      setQuestionNo(questionNo + 1);
+    }
+  };
+
+  const prevQuestion = () => {
+    if (questionNo > 1) {
+      setQuestionNo(questionNo - 1);
+    }
+  };
+
+  const question = quiz.questions[questionNo - 1];
+
   return (
     <SectionStyled id="quiz">
       <Row>
         <Col md={16} sm={16} style={{ margin: "0px auto" }}>
           <QuestionPanel
-            question={quiz.questions[questionNo - 1]}
+            question={question}
             questionNo={questionNo}
+            nextQuestion={nextQuestion}
+            prevQuestion={prevQuestion}
             totalQuestion={quiz.questions.length}
+            correctAnswerIds={question.correct_answer_ids}
           />
         </Col>
       </Row>
