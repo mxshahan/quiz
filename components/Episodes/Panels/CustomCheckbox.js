@@ -61,7 +61,7 @@ const CustomCheckbox = ({
       <label style={{ marginLeft: 10 }}>{props.label}</label>
       {checked && answerChecked && (
         <Tag
-          color="purple"
+          color={status === "correct" ? "#87d068" : "#f1636f"}
           style={{
             position: "absolute",
             right: 0,
@@ -104,14 +104,14 @@ const CustomCheckboxStyled = styled.div`
   }
 
 .checkbox-single{
-  width: 25px;
+  min-width: 25px;
   height: 25px;
   border-radius: 100%;
   border: 2px solid #999;
 }
 
 .checkbox-multiple{
-  width: 25px;
+  min-width: 25px;
   height: 25px;
   border-radius: 3px;
   border: 2px solid #999;

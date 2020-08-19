@@ -5,6 +5,8 @@ import { Progress } from "antd";
 import { CaretRightOutlined, CaretLeftOutlined } from "@ant-design/icons";
 import renderHTML from "react-render-html";
 
+import { useRouter } from "next/router";
+
 const QuestionPanel = ({
   question,
   questionNo,
@@ -12,10 +14,12 @@ const QuestionPanel = ({
   prevQuestion,
   totalQuestion,
   correctAnswerIds,
+  ...props
 }) => {
   const [answerChecked, setAnswerChecked] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState(null);
   const [score, setScore] = useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     setCorrectAnswer(null);
@@ -35,12 +39,12 @@ const QuestionPanel = ({
   };
 
   const seeResult = () => {
-    alert("You have complted");
+    router.push("/lastpage?totalQuestion=" + totalQuestion + "&score=" + score);
   };
 
   const percentage = (score / totalQuestion) * 100 || 0;
-  const isLastQuestion = totalQuestion === questionNo
-  console.log(totalQuestion, questionNo);
+  const isLastQuestion = totalQuestion === questionNo;
+  
   return (
     <Fragment>
       <Progress

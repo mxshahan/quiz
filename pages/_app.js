@@ -12,6 +12,7 @@ import "antd/dist/antd.css";
 // import '../assets/scss/style.scss';
 // import 'react-perfect-scrollbar/dist/css/styles.css';
 import "react-circular-progressbar/dist/styles.css";
+import "../styles/lastpage.scss";
 
 import "../styles/style.scss";
 
