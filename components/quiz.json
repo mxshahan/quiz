@@ -11,7 +11,7 @@
         "item_order": 0,
         "question_text": "<h1>what <strong>makes</strong> the world go 'round?</h1><p><img src=\"https://landerapp.com/blog/wp-content/uploads/2017/12/1-3.png\"></p>",
         "answers": [
-          "{\"answer_text\":\"<h2><strong><em>First answer</em></strong></h2>\",\"disabled\":false}",
+          "{\"answer_text\":\"<strong><em>First answer</em></strong> Usage of basic Tag, and it could be closable by set closable property. Closable Tag support\",\"disabled\":false}",
           "{\"answer_text\":\"<p>Answer B</p>\",\"disabled\":false}",
           "{\"answer_text\":\"Answer C\",\"disabled\":false}",
           "{\"answer_text\":\"Answer D\",\"disabled\":false}"
@@ -32,7 +32,7 @@
           "{\"answer_text\":\"Answer 3\",\"disabled\":false}"
         ],
         "explanation": "to get to the other side...",
-        "correct_answer_ids": [1, 3, 4],
+        "correct_answer_ids": [0, 1, 3],
         "num_expected_answers": 3
       },
       {
@@ -56,13 +56,13 @@
         "item_order": 1,
         "question_text": "This is third question and little bit hard. How can you proceed this?",
         "answers": [
-          "{\"answer_text\":\"Ami valo achi\",\"disabled\":false}",
-          "{\"answer_text\":\"Tumi kemon acho\",\"disabled\":false}",
+          "{\"answer_text\":\"components can contain an Icon. This is done by setting the icon property or placing an Icon component within the Tag\",\"disabled\":false}",
+          "{\"answer_text\":\"Generating a set of Tags by array, you can add and remove dynamically.\",\"disabled\":false}",
           "{\"answer_text\":\"Onek valo\",\"disabled\":false}",
           "{\"answer_text\":\"Valo thako\",\"disabled\":false}"
         ],
         "explanation": "This is the explaination of the question no 3",
-        "correct_answer_ids": [1, 3],
+        "correct_answer_ids": [2, 3],
         "num_expected_answers": 2
       },
       {
@@ -71,13 +71,13 @@
         "item_order": 1,
         "question_text": "This is third question and little bit hard. How can you proceed this?",
         "answers": [
-          "{\"answer_text\":\"Ami valo achi\",\"disabled\":false}",
-          "{\"answer_text\":\"Tumi kemon acho\",\"disabled\":false}",
+          "{\"answer_text\":\"If you want specific control over the positioning and placement of the Icon, then that should be done by placing the Icon component within the Tag rather than using the icon property.\",\"disabled\":false}",
+          "{\"answer_text\":\"We preset five different colors, you can set color property such as success,processing,error,default\",\"disabled\":false}",
           "{\"answer_text\":\"Onek valo\",\"disabled\":false}",
           "{\"answer_text\":\"Valo thako\",\"disabled\":false}"
         ],
         "explanation": "This is the explaination of the question no 3",
-        "correct_answer_ids": [1, 3],
+        "correct_answer_ids": [1, 2],
         "num_expected_answers": 2
       },
       {
@@ -92,7 +92,7 @@
           "{\"answer_text\":\"Valo thako\",\"disabled\":false}"
         ],
         "explanation": "This is the explaination of the question no 3",
-        "correct_answer_ids": [1, 3],
+        "correct_answer_ids": [1, 2],
         "num_expected_answers": 2
       }
     ]

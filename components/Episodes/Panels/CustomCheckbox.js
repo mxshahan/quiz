@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { CheckCircleFilled } from "@ant-design/icons";
+import { CheckCircleFilled, CloseCircleFilled } from "@ant-design/icons";
 import { Tag } from "antd";
 
 const CustomCheckbox = ({
@@ -8,13 +8,24 @@ const CustomCheckbox = ({
   onChange,
   disabled,
   answerChecked,
+  status,
+  correctAnswer,
+  index,
   ...props
 }) => {
   const onClick = () => onChange(!checked);
-
   return (
-    <CustomCheckboxStyled onClick={onClick} disabled={disabled}>
-      {checked ? (
+    <CustomCheckboxStyled
+      onClick={onClick}
+      disabled={disabled && !status}
+      status={status}
+    >
+      {status === "incorrect" ? (
+        <CloseCircleFilled
+          style={{ fontSize: 25, color: "#f1636f" }}
+          fill="currentColor"
+        />
+      ) : status === "correct" || checked ? (
         <CheckCircleFilled
           style={{ fontSize: 25, color: "#52c41a" }}
           fill="currentColor"
@@ -52,7 +63,12 @@ const CustomCheckboxStyled = styled.div`
   margin: 10px;
   padding: 15px;
   border-radius: 3px;
-  border: 1px solid #87d068;
+  border: ${(props) =>
+    props.status === "incorrect"
+      ? "2px solid #f1636f"
+      : props.status === "correct"
+      ? "2px solid #87d068"
+      : "1px solid #87d068"};
   transition: 0.3s ease 0s;
   cursor: pointer;
   * {

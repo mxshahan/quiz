@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
-import SingleOption from "./SingleOption";
-import { Radio, Checkbox } from "antd";
-import { RadioStyled, CheckboxStyled, AnswerPanelStyled } from "./Styled";
+import React, { useState, useEffect, Fragment } from "react";
+import { AlertStyled, AnswerPanelStyled, BtnStyled } from "./Styled";
 import CustomCheckbox from "./CustomCheckbox";
 import renderHTML from "react-render-html";
 
@@ -12,8 +10,13 @@ const AnswerPanel = ({
   questionNo,
   correctAnswer,
   answerChecked,
+  nextQuestion,
+  handleCheckAnswer,
+  handleScore,
+  explanation,
 }) => {
   const [checked, setChecked] = useState([]);
+  const [isCorrect, setIsCorrect] = useState(true);
 
   useEffect(() => {
     setChecked([]);
@@ -44,55 +47,100 @@ const AnswerPanel = ({
     );
   };
 
-  const checkCorrect = (index) => {
+  const checkAnswer = () => {
+    if (checked.length !== expectedAnswer) return alert("Select answer");
+
+    handleCheckAnswer();
+  };
+
+  useEffect(() => {
     if (Array.isArray(correctAnswer)) {
-      if (checked.includes(index)) {
-        if (correctAnswer.includes(index)) {
-          return "correct";
-        } else {
+      let correct = true;
+      for (var i of checked) {
+        const s = checkCorrect(i);
+        if (s === "incorrect") {
+          correct = false;
+          break;
+        }
+      }
+      // console.log(correct);
+      setIsCorrect(correct);
+      handleScore(correct);
+    }
+  }, [correctAnswer]);
+
+  const checkCorrect = (index) => {
+    if (Array.isArray(correctAnswer) && answerChecked) {
+      if (correctAnswer.includes(index)) {
+        return "correct";
+      } else {
+        if (checked.includes(index)) {
           return "incorrect";
         }
       }
     }
 
-    return "incorrect";
+    return null;
   };
 
-  console.log(correctAnswer);
+  let alertStatus = null;
+
+  if (isCorrect && answerChecked) {
+    alertStatus = "success";
+  } else if (!isCorrect && answerChecked) {
+    alertStatus = "error";
+  }
 
   return (
-    <AnswerPanelStyled>
-      {expectedAnswer > 1 && (
-        <div style={{ marginBottom: 10 }}>Choose {expectedAnswer}</div>
+    <Fragment>
+      <AnswerPanelStyled>
+        {expectedAnswer > 1 && (
+          <div style={{ marginBottom: 10 }}>Choose {expectedAnswer}</div>
+        )}
+        {Array.isArray(answers) &&
+          answers.map((ans, index) => {
+            const answer = JSON.parse(ans);
+            const status = checkCorrect(index);
+            return (
+              <CustomCheckbox
+                key={ans}
+                status={status}
+                label={renderHTML(answer.answer_text)}
+                onChange={handleChange(index)}
+                checked={checked.includes(index)}
+                disabled={markDisable(index)}
+                answerChecked={answerChecked}
+              />
+            );
+          })}
+      </AnswerPanelStyled>
+
+      {alertStatus && (
+        <Fragment>
+          <AlertStyled
+            message={alertStatus === "success" ? "Great Job!" : "Sorry !!!"}
+            description={
+              alertStatus === "success"
+                ? "You have successfully done this question. Keep continue"
+                : "You have missed this. Don't worry do better to next question"
+            }
+            type={alertStatus}
+            showIcon
+          />
+          <AlertStyled
+            message="Explanation"
+            description={renderHTML(explanation)}
+            type="success"
+          />
+        </Fragment>
       )}
-      {Array.isArray(answers) &&
-        answers.map((ans, index) => {
-          const answer = JSON.parse(ans);
-          const status = checkCorrect(index);
-          return (
-            // <CheckboxStyled
-            //   key={ans}
-            //   radio={expectedAnswer === 1}
-            //   name="answer"
-            //   label={answer.answer_text}
-            //   value={index}
-            //   onChange={handleChange(index)}
-            //   checked={checked.includes(index)}
-            //   disabled={markDisable(index)}
-            //   status={status}
-            // />
-            <CustomCheckbox
-              key={ans}
-              status={status}
-              label={renderHTML(answer.answer_text)}
-              onChange={handleChange(index)}
-              checked={checked.includes(index)}
-              disabled={markDisable(index)}
-              answerChecked={answerChecked}
-            />
-          );
-        })}
-    </AnswerPanelStyled>
+
+      {answerChecked ? (
+        <BtnStyled onClick={nextQuestion}>Next Questionr</BtnStyled>
+      ) : (
+        <BtnStyled onClick={checkAnswer}>Check Answer</BtnStyled>
+      )}
+    </Fragment>
   );
 };
 
