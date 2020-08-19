@@ -4,7 +4,7 @@ import { Alert, Card, Radio } from "antd";
 import { Header, Checkbox, Button } from "semantic-ui-react";
 
 export const BtnStyled = styled(Button)`
-  background: #ff0045 !important;
+  background: ${(props) => (props.color ? props.color : "#ff0045")} !important;
   border-radius: 5px;
   font-size: 15px;
   color: white !important;
@@ -98,9 +98,6 @@ export const AnswerPanelStyled = styled.div`
   margin-bottom: 20px;
 `;
 
-
-
 export const AlertStyled = styled(Alert)`
   margin-bottom: 10px;
 `;
-

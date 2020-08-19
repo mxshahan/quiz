@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { CheckCircleFilled, CloseCircleFilled } from "@ant-design/icons";
+import {
+  CheckCircleFilled,
+  CloseCircleFilled,
+  CheckSquareFilled,
+  CloseSquareFilled,
+} from "@ant-design/icons";
 import { Tag } from "antd";
 
 const CustomCheckbox = ({
@@ -11,6 +16,7 @@ const CustomCheckbox = ({
   status,
   correctAnswer,
   index,
+  type,
   ...props
 }) => {
   const onClick = () => onChange(!checked);
@@ -21,17 +27,35 @@ const CustomCheckbox = ({
       status={status}
     >
       {status === "incorrect" ? (
-        <CloseCircleFilled
-          style={{ fontSize: 25, color: "#f1636f" }}
-          fill="currentColor"
-        />
+        type === "multiple" ? (
+          <CloseSquareFilled
+            style={{ fontSize: 25, color: "#f1636f" }}
+            fill="currentColor"
+          />
+        ) : (
+          <CloseCircleFilled
+            style={{ fontSize: 25, color: "#f1636f" }}
+            fill="currentColor"
+          />
+        )
       ) : status === "correct" || checked ? (
-        <CheckCircleFilled
-          style={{ fontSize: 25, color: "#52c41a" }}
-          fill="currentColor"
-        />
+        type === "multiple" ? (
+          <CheckSquareFilled
+            style={{ fontSize: 25, color: "#52c41a" }}
+            fill="currentColor"
+          />
+        ) : (
+          <CheckCircleFilled
+            style={{ fontSize: 25, color: "#52c41a" }}
+            fill="currentColor"
+          />
+        )
       ) : (
-        <span className="blank-checkbox" />
+        <span
+          className={
+            type === "multiple" ? "checkbox-multiple" : "checkbox-single"
+          }
+        />
       )}
       {/* <CloseCircleOutlined /> */}
       <label style={{ marginLeft: 10 }}>{props.label}</label>
@@ -79,12 +103,19 @@ const CustomCheckboxStyled = styled.div`
     box-shadow: 0px 0px 13px 1px #ddd;
   }
 
-  .blank-checkbox{
-    width: 25px;
-    height: 25px;
-    border-radius: 100%;
-    border: 2px solid #999;
-  }
+.checkbox-single{
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  border: 2px solid #999;
+}
+
+.checkbox-multiple{
+  width: 25px;
+  height: 25px;
+  border-radius: 3px;
+  border: 2px solid #999;
+}
 
   /* .checkbox {
     width: 25px;
@@ -123,5 +154,5 @@ const CustomCheckboxStyled = styled.div`
       left: 50%;
       transform: translate(-50%, -50%) rotate(45deg);
     } */
-  }
+  /* } */
 `;

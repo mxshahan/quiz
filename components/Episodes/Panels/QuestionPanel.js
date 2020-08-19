@@ -34,7 +34,13 @@ const QuestionPanel = ({
     }
   };
 
+  const seeResult = () => {
+    alert("You have complted");
+  };
+
   const percentage = (score / totalQuestion) * 100 || 0;
+  const isLastQuestion = totalQuestion === questionNo
+  console.log(totalQuestion, questionNo);
   return (
     <Fragment>
       <Progress
@@ -89,6 +95,8 @@ const QuestionPanel = ({
           handleCheckAnswer={checkAnswer}
           handleScore={handleScore}
           explanation={question.explanation}
+          isLastQuestion={isLastQuestion}
+          seeResult={seeResult}
         />
       </CardStyled>
     </Fragment>
