@@ -48,8 +48,9 @@ const LastPage = () => {
                 <div
                   style={{
                     borderRadius: "50%",
-                    backgroundColor: "#fff",
                     padding: "10px",
+                    backgroundColor: '#fff',
+                    height: "40px",
                     marginRight: "10px",
                   }}
                 >
@@ -58,8 +59,9 @@ const LastPage = () => {
                 <div
                   style={{
                     borderRadius: "50%",
-                    backgroundColor: "#fff",
+                    backgroundColor: '#fff',
                     padding: "10px",
+                    height: "40px",
                   }}
                 >
                     <DislikeOutlined style={{ fontSize: "20px" }}/>
