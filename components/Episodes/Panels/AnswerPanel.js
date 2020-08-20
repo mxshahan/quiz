@@ -14,6 +14,8 @@ const AnswerPanel = ({
   handleCheckAnswer,
   handleScore,
   explanation,
+  isLastQuestion,
+  seeResult,
 }) => {
   const [checked, setChecked] = useState([]);
   const [isCorrect, setIsCorrect] = useState(true);
@@ -110,6 +112,7 @@ const AnswerPanel = ({
                 checked={checked.includes(index)}
                 disabled={markDisable(index)}
                 answerChecked={answerChecked}
+                type={expectedAnswer === 1 ? "single" : "multiple"}
               />
             );
           })}
@@ -134,9 +137,12 @@ const AnswerPanel = ({
           />
         </Fragment>
       )}
-
-      {answerChecked ? (
-        <BtnStyled onClick={nextQuestion}>Next Questionr</BtnStyled>
+      {isLastQuestion && answerChecked ? (
+        <BtnStyled color="#033d79" onClick={seeResult}>
+          Check Result
+        </BtnStyled>
+      ) : answerChecked ? (
+        <BtnStyled onClick={nextQuestion}>Next Question</BtnStyled>
       ) : (
         <BtnStyled onClick={checkAnswer}>Check Answer</BtnStyled>
       )}

@@ -441,7 +441,7 @@ const wideSetup = ({
         className="course-viewer--complete-button"
         style={{ width: "66%", margin: "auto" }}
       >
-        <Menu inverted>
+        <Menu fixed="top" inverted>
           <Menu.Item
             as={"a"}
             className={isCourseFirstEpisode ? "disabled" : "normal"}

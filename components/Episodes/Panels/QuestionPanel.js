@@ -4,6 +4,9 @@ import AnswerPanel from "./AnswerPanel";
 import { Progress } from "antd";
 import { CaretRightOutlined, CaretLeftOutlined } from "@ant-design/icons";
 import renderHTML from "react-render-html";
+import data from '../../quiz.json'
+
+import { useRouter } from "next/router";
 
 const QuestionPanel = ({
   question,
@@ -12,10 +15,12 @@ const QuestionPanel = ({
   prevQuestion,
   totalQuestion,
   correctAnswerIds,
+  ...props
 }) => {
   const [answerChecked, setAnswerChecked] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState(null);
   const [score, setScore] = useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     setCorrectAnswer(null);
@@ -34,7 +39,15 @@ const QuestionPanel = ({
     }
   };
 
+  const seeResult = () => {
+    data.quiz.previous_attempts.push({"date": 'dfdf', 'score': 14})
+    console.log(data.quiz.previous_attempts);
+    router.push("/lastpage?totalQuestion=" + totalQuestion + "&score=" + score);
+  };
+
   const percentage = (score / totalQuestion) * 100 || 0;
+  const isLastQuestion = totalQuestion === questionNo;
+  
   return (
     <Fragment>
       <Progress
@@ -89,6 +102,8 @@ const QuestionPanel = ({
           handleCheckAnswer={checkAnswer}
           handleScore={handleScore}
           explanation={question.explanation}
+          isLastQuestion={isLastQuestion}
+          seeResult={seeResult}
         />
       </CardStyled>
     </Fragment>
