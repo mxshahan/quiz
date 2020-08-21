@@ -4,16 +4,35 @@ import { BarChartOutlined, BgColorsOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import data from "../components/quiz.json";
 import { useRouter } from "next/router";
+import moment from "moment";
 
 const Home = () => {
   const router = useRouter();
-  const [attemptData, setAttemptData] = useState([]);
+  const [attemptData, setAttemptData] = useState(data.quiz.results);
+
+  useEffect(() => {
+    let result = {};
+    const { score = 0, totalQuestion = 0 } = router.query;
+
+    console.log(router.query);
+
+    if (score > 0 && totalQuestion > 0) {
+      const percent = ((score / totalQuestion) * 100).toFixed(1);
+
+      if (percent <= 50) {
+        result[new Date()] = [percent || 0, "fail"];
+      } else {
+        result[new Date()] = [percent || 0, "pass"];
+      }
+      setAttemptData([...attemptData, result]);
+    }
+  }, [router.query]);
 
   useEffect(() => {
     window.document.body.style = "background: #031e40";
-    setAttemptData(data.quiz.previous_attempts);
   });
-  console.log(data.quiz.previous_attempts);
+
+  console.log(attemptData);
 
   return (
     <div
@@ -130,28 +149,36 @@ const Home = () => {
                         fontSize: "16px",
                         margin: "0",
                         color: "#ada3a3",
-                        marginBottom: '15px'
+                        marginBottom: "15px",
                       }}
                     >
                       Attempt History
                     </p>
-                    {attemptData.map((item) => (
-                      <div
-                        style={{
-                          width: "85%",
-                          display: "flex",
-                          justifyContent: "space-between",
-                          marginBottom: '10px'
-                        }}
-                      >
-                        <p style={{ margin: "0" }}>{item?.date}</p>
-                        <Tag
-                          color={`${item.score > 50 ? "#87d068" : "red"}`}
+                    {attemptData.map((item) => {
+                      const objKey = Object.keys(item);
+                      const key = objKey[0];
+                      return (
+                        <div
+                          style={{
+                            width: "85%",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            marginBottom: "10px",
+                          }}
                         >
-                          {item?.score} % {item.score > 50? 'Passed': 'Failed'}
-                        </Tag>
-                      </div>
-                    ))}
+                          <p style={{ margin: "0" }}>
+                            {moment(key).format("MMM D, YYYY")}
+                          </p>
+                          <Tag
+                            color={`${
+                              item[key][1] === "pass" ? "#87d068" : "red"
+                            }`}
+                          >
+                            {item[key][0]}%{item[key][1]}
+                          </Tag>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </Col>

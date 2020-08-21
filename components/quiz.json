@@ -6,9 +6,18 @@
     "quiz_name": "It is a long established fact that",
     "quiz_description": "It is a long established fact that a reader will be distracted by the readable It is a long established fact that a reader will be distracted by the readable It is a long established fact that a reader will be distracted by the readable",
     "previous_attempts": [
-      {"date": "Jul 30, 2020", "score": 75},
-      {"date": "Aug 30, 2020", "score": 44}
+      { "date": "Jul 30, 2020", "score": 75 },
+      { "date": "Aug 30, 2020", "score": 44 }
     ],
+    "results": [
+      {
+        "2020-08-20T14:06:03+0000": ["56.78", "fail"]
+      },
+      {
+        "2020-08-20T14:12:05+0000": ["84.39", "pass"]
+      }
+    ],
+
     "questions": [
       {
         "id": "bffdb72a-1ba7-496b-9e35-8bc83c390002",

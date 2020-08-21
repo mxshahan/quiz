@@ -144,7 +144,7 @@ const AnswerPanel = ({
       ) : answerChecked ? (
         <BtnStyled onClick={nextQuestion}>Next Question</BtnStyled>
       ) : (
-        <BtnStyled onClick={checkAnswer}>Check Answer</BtnStyled>
+        <BtnStyled onClick={checkAnswer} disabled={expectedAnswer !== checked.length}>Check Answer</BtnStyled>
       )}
     </Fragment>
   );
