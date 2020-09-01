@@ -99,23 +99,23 @@ const CustomCheckboxStyled = styled.div`
     cursor: pointer;
   }
   &:hover {
-    transform: scale(1.005) ;
+    transform: scale(1.005);
     box-shadow: 0px 0px 13px 1px #ddd;
   }
 
-.checkbox-single{
-  min-width: 25px;
-  height: 25px;
-  border-radius: 100%;
-  border: 2px solid #999;
-}
+  .checkbox-single {
+    min-width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    border: 2px solid #999;
+  }
 
-.checkbox-multiple{
-  min-width: 25px;
-  height: 25px;
-  border-radius: 3px;
-  border: 2px solid #999;
-}
+  .checkbox-multiple {
+    min-width: 25px;
+    height: 25px;
+    border-radius: 3px;
+    border: 2px solid #999;
+  }
 
   /* .checkbox {
     width: 25px;
@@ -124,14 +124,18 @@ const CustomCheckboxStyled = styled.div`
     margin: 10px;
     border-radius: 100%;
     position: relative;
-    background: ${(props) =>
-      props.status === "correct"
-        ? "#07c989"
-        : props.status === "incorrect"
-        ? "#f1636f"
-        : props.status};
+    background: ${(
+    props
+  ) =>
+    props.status === "correct"
+      ? "#07c989"
+      : props.status === "incorrect"
+      ? "#f1636f"
+      : props.status};
     border: ${(props) =>
-      !props.status === "incorrect" ? "4px solid #f1636f" : ""};
+    !props.status === "incorrect"
+      ? "4px solid #f1636f"
+      : ""};
     &:before {
     content: " ";
     height: 100%;
