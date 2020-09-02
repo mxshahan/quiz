@@ -38,6 +38,7 @@ const Home = () => {
     <div
       style={{
         height: "100vh",
+        background: "red",
       }}
     >
       <Row>

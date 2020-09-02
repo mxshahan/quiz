@@ -1,4 +1,3 @@
-import "styled-components";
 import styled from "styled-components";
 import { Alert, Card, Radio } from "antd";
 import { Header, Checkbox, Button } from "semantic-ui-react";
