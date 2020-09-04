@@ -1,5 +1,5 @@
 import React from "react";
-import { StyledTableRow } from "./preExam.style";
+import { StyledTableRow } from "../PreExam/preExam.style";
 
 const TableRow = ({ leftText, rightText, isTableHeader }) => {
   return (

@@ -11,7 +11,7 @@ import {
 } from "./preExam.style";
 import Link from "next/link";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import TableRow from "./TableRow";
+import TableRow from "../Exam/TableRow";
 import { useRouter } from "next/router";
 
 const PreExam = () => {

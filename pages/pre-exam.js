@@ -1,5 +1,5 @@
 import React from "react";
-import { PreExam } from "../components/Exam";
+import { PreExam } from "../components/PreExam";
 
 const PreExamPage = () => <PreExam />
 
