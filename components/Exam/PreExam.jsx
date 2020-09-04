@@ -60,6 +60,7 @@ const PreExam = () => {
           <PreExamMiniTitle>domain breackdown</PreExamMiniTitle>
           {rows.map(({ leftText, rightText }, idx) => (
             <TableRow
+              key={idx}
               isTableHeader={idx === 0}
               leftText={leftText}
               rightText={rightText}

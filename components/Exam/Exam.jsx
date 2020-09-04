@@ -1,87 +1,71 @@
-import React from "react";
-import { Card, Row, Col, Checkbox, Button } from "antd";
+import React, { useState, useEffect } from "react";
+import { Card, Row, Col } from "antd";
 import {
   FlagOutlined,
   LockOutlined,
-  CaretRightOutlined,
-  CaretLeftOutlined,
 } from "@ant-design/icons";
 import {
   Question,
-  DivSpace,
-  QuestionNumberList,
-  Text,
-  ExamBtnNo,
-} from "../Episodes/Panels/exam.style";
+  CardExtra,
+} from "./exam.style";
+
+import AnswerPanel from "./AnswerPanel";
+import QuestionButtons from "./QuestionButtons";
+
+import { questions } from "./data.json";
 
 const Exam = () => {
+  const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
+  const [answeredQues, setAnsweredQues] = useState([]);
+  const [markedQues, setMarkedQues] = useState([]);
+  const [mood, setMood] = useState(0);
+  const [isCrntMarked, setMarked] = useState(false);
+
+  useEffect(() => {
+    const data = markedQues.find((item) => item === currentQuestion.item_order);
+    if (data === undefined) setMarked(false);
+    else setMarked(true);
+  }, [markedQues, currentQuestion]);
+
+  const handleNatigation = (item_order) => {
+    const cnt = questions.find((item) => item.item_order === item_order);
+    setCurrentQuestion(cnt);
+  };
   return (
     <Row style={{ padding: "20px" }}>
       <Col span={14} style={{ paddingRight: "20px" }}>
         <Card
           style={{ marginTop: 16 }}
           type="inner"
-          title="Question no 1"
+          title={`Question no ${currentQuestion.item_order + 1}`}
           extra={
-            <div>
-              <LockOutlined style={{ marginRight: "10px" }} />
-              <FlagOutlined />
-            </div>
+            <CardExtra>
+              {!!mood && <LockOutlined style={{ marginRight: "10px" }} />}
+              {isCrntMarked && <FlagOutlined style={{ color: "#FF1575" }} />}
+            </CardExtra>
           }
         >
-          <Question>
-            It has survived not only five centuries, but also the leap into
-            electronic typesetting, remaining essentially unchanged. It was
-            popularised in the 1960s with the release of Letraset sheets
-            containing Lorem Ipsum passages, and more recently with desktop
-            publishing software like Aldus PageMaker including versions of Lorem
-            Ipsum
-          </Question>
-          <DivSpace direction="vertical">
-            <Checkbox style={{ margin: "10px" }}>Checkbox</Checkbox>
-            <Checkbox style={{ margin: "10px" }}>Checkbox</Checkbox>
-            <Checkbox style={{ margin: "10px" }}>Checkbox</Checkbox>
-            <DivSpace direction="horizontal">
-              <Button style={{ backgroundColor: "#00a6ff", color: "white" }}>
-                Answer
-              </Button>
-              <Button>
-                <FlagOutlined />
-                Flag for Review
-              </Button>
-            </DivSpace>
-          </DivSpace>
+          <Question>{currentQuestion.question_text}</Question>
+          <AnswerPanel
+            question={currentQuestion}
+            answeredQues={answeredQues}
+            setAnsweredQues={setAnsweredQues}
+            handleNatigation={handleNatigation}
+            mood={mood}
+            setMood={setMood}
+            markedQues={markedQues}
+            setMarkedQues={setMarkedQues}
+            isMarked={isCrntMarked}
+          />
         </Card>
       </Col>
-      <Col
-        span={10}
-        style={{ paddingLeft: "40px", marginTop: "16px", paddingRight: "40px" }}
-      >
-        <QuestionNumberList>
-          <Text>NAVIGATE</Text>
-          <ExamBtnNo type="primary"> 1 </ExamBtnNo>
-          <Button
-            type="primary"
-            block
-            style={{ marginTop: "20px", marginBottom: "20px" }}
-          >
-            Submit Exam
-          </Button>
-          <h4>you have answered 12 Question</h4>
-        </QuestionNumberList>
-        <Button
-          type="text"
-          type="link"
-          style={{ float: "right", marginTop: "20px" }}
-        >
-          Next
-          <CaretRightOutlined />
-        </Button>
-        <Button type="text" type="link" style={{ marginTop: "20px" }}>
-          <CaretLeftOutlined />
-          Back
-        </Button>
-      </Col>
+      <QuestionButtons
+        questions={questions}
+        handleNatigation={handleNatigation}
+        markedQues={markedQues}
+        answeredQues={answeredQues}
+        currentQuestion={currentQuestion}
+      />
     </Row>
   );
 };
