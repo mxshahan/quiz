@@ -1,5 +1,6 @@
 import React from "react";
+import PostExam from "../components/PostExam";
 
-const PostExam = () => <p>PostExam</p>;
+const PostExamPage = () => <PostExam />;
 
-export default PostExam;
+export default PostExamPage;

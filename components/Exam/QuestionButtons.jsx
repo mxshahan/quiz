@@ -3,6 +3,7 @@ import { CaretLeftOutlined, CaretRightOutlined } from "@ant-design/icons";
 import { Text, QuestionNumberList, ExamBtnNo } from "./exam.style";
 import { Badge, Col, Button } from "antd";
 import Modal from "antd/lib/modal/Modal";
+import { useRouter } from "next/router";
 
 const QuestionButtons = ({
   questions,
@@ -23,12 +24,13 @@ const QuestionButtons = ({
     else return true;
   };
   const isActive = (item_order) => currentQuestion.item_order === item_order;
+  const route = useRouter();
   return (
     <>
       <Modal
         title="Ready to submit exam?"
         visible={show}
-        // onOk={this.handleOk}
+        onOk={() => route.push("/post-exam")}
         onCancel={() => setShow(false)}
         cancelText="Continue exam"
         okText="Submit exam"
