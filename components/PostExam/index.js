@@ -4,6 +4,7 @@ import { PostExamHeader } from "./PostExamHeader";
 import { PostExamWrapper } from "./postExam.style";
 import { QuickTips } from "./QuickTips";
 import { DomainTable } from "./DomainTable";
+import { SingleDomain } from "./SingleDomain";
 
 const PostExam = () => {
   return (
@@ -16,6 +17,7 @@ const PostExam = () => {
             <QuickTips />
           </Card>
           <DomainTable />
+          <SingleDomain />
         </Col>
         <Col span="2"></Col>
       </Row>

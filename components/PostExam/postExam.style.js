@@ -2,7 +2,7 @@ import style from "styled-components";
 import styled from "styled-components";
 import { LikeOutlined } from "@ant-design/icons";
 import { Vote } from "./Vote";
-import { Card } from "antd";
+import { Card, Progress, Button } from "antd";
 
 export const StyledTableRow = styled.div`
   display: flex;
@@ -98,4 +98,39 @@ export const TableTitle = styled.h2`
 `;
 export const TableCard = styled(Card)`
   margin: 40px 0;
+`;
+export const SingleDomainTitle = styled.h2`
+  color: ${({ color }) => (color ? color : "#fd8a16")};
+  font-weight: 700;
+  font-size: ${({ size }) => (size ? size : "17px")};
+  text-transform: ${({ transform }) => (transform ? transform : "uppercase")}; ;
+`;
+export const DomainProgess = styled(Progress)`
+  margin-right: 20px;
+  .ant-progress-inner::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    left: 0;
+    border-radius: 50%;
+    background: #fff;
+    z-index: -1;
+  }
+`;
+
+export const ExamBtnNo = styled(Button)`
+  margin: 5px;
+  background-color: ${({ isAnswered, isActive }) =>
+    isActive ? "#FF1575" : isAnswered ? "#CFDFFF" : "#C0F7E1"};
+  color: ${({ isActive }) => (isActive ? "#fff" : "#354569")};
+  border-width: 0px;
+  width: 40px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  &:hover,
+  &:focus {
+    background-color: #FF1575;
+  }
 `;
