@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, Row, Col } from "antd";
-import {
-  FlagOutlined,
-  LockOutlined,
-} from "@ant-design/icons";
-import {
-  Question,
-  CardExtra,
-} from "./exam.style";
+import { FlagOutlined, LockOutlined } from "@ant-design/icons";
+import { Question, CardExtra } from "./exam.style";
 
 import AnswerPanel from "./AnswerPanel";
 import QuestionButtons from "./QuestionButtons";
@@ -32,10 +26,10 @@ const Exam = () => {
     setCurrentQuestion(cnt);
   };
   return (
-    <Row style={{ padding: "20px" }}>
-      <Col span={14} style={{ paddingRight: "20px" }}>
+    <Row gutter={[25, 25]} style={{ padding: "30px 0" }}>
+      <Col span="2"></Col>
+      <Col lg={12} md={20} sm={20} xs={20}>
         <Card
-          style={{ marginTop: 16 }}
           type="inner"
           title={`Question no ${currentQuestion.item_order + 1}`}
           extra={
@@ -59,6 +53,9 @@ const Exam = () => {
           />
         </Card>
       </Col>
+      <Col lg={0} md={2} sm={2} xs={2}></Col>
+      <Col lg={0} md={2} sm={2} xs={2}></Col>
+
       <QuestionButtons
         questions={questions}
         handleNatigation={handleNatigation}
@@ -66,6 +63,7 @@ const Exam = () => {
         answeredQues={answeredQues}
         currentQuestion={currentQuestion}
       />
+      <Col span="2"></Col>
     </Row>
   );
 };

@@ -4,6 +4,7 @@ import { SingleDomainTitle, DomainProgess, ExamBtnNo } from "./postExam.style";
 import { questions } from "./data.json";
 import { Button } from "semantic-ui-react";
 import { CheckOutlined } from "@ant-design/icons";
+import { Vote } from "./Vote";
 
 export const SingleDomain = () => {
   const [cntQues, setCntQues] = useState(questions[0]);
@@ -13,10 +14,10 @@ export const SingleDomain = () => {
     setCntQues(questions[idx]);
   };
   return (
-    <Row>
-      <Col span="9">
+    <Row gutter={[20, 20]}>
+      <Col lg={10} md={24} sm={24} xs={24}>
         <Card>
-          <div style={{ display: "flex", transform: "translateX(-18%)" }}>
+          <div style={{ display: "flex", marginLeft: "-52px" }}>
             <DomainProgess
               strokeColor="#FE1575"
               strokeWidth="8"
@@ -56,8 +57,7 @@ export const SingleDomain = () => {
           ))}
         </Card>
       </Col>
-      <Col span="1"></Col>
-      <Col span="14">
+      <Col lg={14} md={24} sm={24} xs={24}>
         <Card>
           <SingleDomainTitle>
             Question {cntQues.item_order + 1}
@@ -86,6 +86,9 @@ export const SingleDomain = () => {
                 </div>
               </div>
             ))}
+          </div>
+          <div style={{display:"flex", justifyContent:"flex-end", marginTop: "30px"}}>
+            <Vote text={"Rate this Question"}/>
           </div>
         </Card>
       </Col>

@@ -42,6 +42,9 @@ export const PreExamTitle = styled.div`
     display: inline-block;
     max-width: 100px;
     margin-right: 15px;
+    @media (max-width: 900px) {
+      float: none;
+    }
   }
   p {
     min-width: fit-content;

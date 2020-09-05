@@ -9,8 +9,8 @@ export const DivSpace = styled(Space)`
 
 export const QuestionNumberList = styled.div`
   background-color: white;
-  padding-left: 20px;
-  padding-right: 20px;
+  // padding-left: 20px;
+  // padding-right: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
 `;

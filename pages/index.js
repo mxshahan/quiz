@@ -28,9 +28,9 @@ const Home = () => {
     }
   }, [router.query]);
 
-  useEffect(() => {
-    window.document.body.style = "background: #031e40";
-  });
+  // useEffect(() => {
+  //   window.document.body.style = "background: #031e40";
+  // });
 
   console.log(attemptData);
 
@@ -38,7 +38,7 @@ const Home = () => {
     <div
       style={{
         height: "100vh",
-        background: "red",
+        background: "#031e40",
       }}
     >
       <Row>

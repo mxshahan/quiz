@@ -32,7 +32,11 @@ const PreExam = () => {
       <Col span="2"></Col>
       <Col span="20">
         <PreExamHeader>
-          <img src="/pre-exam-logo.PNG" alt="pre-exam-logo" />
+          <img
+            src="/pre-exam-logo.PNG"
+            alt="pre-exam-logo"
+            style={{ maxWidth: "50%" }}
+          />
           <Link href="/">
             <span>
               Back to Dashboard <ArrowRightOutlined />

@@ -70,7 +70,7 @@ export const PostExamWrapper = styled.div`
 `;
 export const HeaderWrapper = styled.div`
   text-align: center;
-  padding: 60px;
+  padding: 60px 0;
   position: relative;
   transform-style: preserve-3d;
   &::after {
