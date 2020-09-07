@@ -7,6 +7,7 @@ import AnswerPanel from "./AnswerPanel";
 import QuestionButtons from "./QuestionButtons";
 
 import { questions } from "./data.json";
+import renderHTML from "react-render-html";
 
 const Exam = () => {
   const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
@@ -23,7 +24,8 @@ const Exam = () => {
 
   const handleNatigation = (item_order) => {
     const cnt = questions.find((item) => item.item_order === item_order);
-    setCurrentQuestion(cnt);
+    if (cnt) setCurrentQuestion(cnt);
+    else setCurrentQuestion(questions[0]);
   };
   return (
     <Row gutter={[25, 25]} style={{ padding: "30px 0" }}>
@@ -39,8 +41,9 @@ const Exam = () => {
             </CardExtra>
           }
         >
-          <Question>{currentQuestion.question_text}</Question>
+          <Question>{renderHTML(currentQuestion.question_text)}</Question>
           <AnswerPanel
+            length={questions.length}
             question={currentQuestion}
             answeredQues={answeredQues}
             setAnsweredQues={setAnsweredQues}

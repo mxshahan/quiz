@@ -5,7 +5,7 @@ import { Progress } from "antd";
 const TableRow = ({ leftText, percent }) => {
   return (
     <StyledTableRow>
-      <h2>{leftText}</h2>
+      <h2 style={{ textTransform: "capitalize" }}>{leftText}</h2>
       <Progress
         percent={percent}
         strokeWidth={20}
