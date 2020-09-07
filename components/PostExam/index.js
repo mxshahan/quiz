@@ -51,6 +51,7 @@ const PostExam = () => {
           {domainKey.map((key) => (
             <SingleDomain
               key={key}
+              domainName={key}
               percent={calculatePercent(key)}
               questions={domain[key]}
             />

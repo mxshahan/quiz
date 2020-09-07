@@ -12,7 +12,7 @@ import {
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { Vote } from "./Vote";
 
-export const SingleDomain = ({ percent, questions }) => {
+export const SingleDomain = ({ percent, questions, domainName }) => {
   const [cntQues, setCntQues] = useState(questions[0]);
   const isCorrectBtn = (order) => {
     const data = questions.find((item) => parseInt(item.item_order) === order);
@@ -59,7 +59,7 @@ export const SingleDomain = ({ percent, questions }) => {
                 size="30px"
                 transform="capitalize"
               >
-                Define Performance Architectures
+                {domainName}
               </SingleDomainTitle>
             </div>
           </div>
