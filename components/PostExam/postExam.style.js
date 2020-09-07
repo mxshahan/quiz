@@ -68,6 +68,29 @@ export const PostExamWrapper = styled.div`
     font-size: 15px;
   }
 `;
+export const AnswerPanel = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+`;
+export const IconBox = styled.div`
+  display: flex;
+  alignitems: center;
+  opacity: ${({ isSelected }) => (isSelected ? "1" : ".5")};
+`;
+export const SelectedBtn = styled(Button)`
+  color: ${({ correct }) =>
+    correct ? "#04e088 !important" : "red !important"};
+  background: #f2f3f5;
+  border: none;
+  &:hover,
+  &:focus,
+  &:active {
+    color: ${({ correct }) =>
+      correct ? "#04e088 !important" : "red !important"};
+    background: #f2f3f5;
+  }
+`;
 export const HeaderWrapper = styled.div`
   text-align: center;
   padding: 60px 0;
@@ -131,6 +154,28 @@ export const ExamBtnNo = styled(Button)`
   align-items: center;
   &:hover,
   &:focus {
-    background-color: #FF1575;
+    background-color: #ff1575;
+  }
+`;
+
+export const ExamAnsBtnNo = styled(Button)`
+  margin: 5px;
+  background-color: ${({ isCorrect, isActive }) =>
+    isActive
+      ? isCorrect
+        ? "#06b56e"
+        : "#FF1575"
+      : isCorrect
+      ? "#C0F7E1"
+      : "#FFC5DC"};
+  color: ${({ isActive }) => (isActive ? "#fff" : "#354569")};
+  border-width: 0px;
+  width: 40px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  &:hover,
+  &:focus {
+    background-color: ${({ isCorrect }) => (isCorrect ? "#06b56e" : "#FF1575")};
   }
 `;

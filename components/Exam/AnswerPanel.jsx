@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Button, Radio } from "antd";
-import { FlagOutlined } from "@ant-design/icons";
+import { FlagOutlined, CheckOutlined } from "@ant-design/icons";
 import {
   RadioStyled,
   CheckboxStyled,
   DivSpace,
   StyledFlagOutlined,
+  Answer,
 } from "./exam.style";
 import { BtnStyled } from "../Episodes/Panels/Styled";
+import renderHTML from "react-render-html";
 
 const AnswerPanel = ({
   question,
@@ -19,6 +21,7 @@ const AnswerPanel = ({
   markedQues,
   setMarkedQues,
   isMarked,
+  length,
 }) => {
   const [currentValue, setCurrentValue] = useState([]);
   useEffect(() => {
@@ -79,6 +82,10 @@ const AnswerPanel = ({
         correct_answer_ids: currentValue,
       });
     setAnsweredQues(newArray);
+    if (question.item_order + 1 === length) {
+      setMood(1);
+      return;
+    }
     handleNatigation(question.item_order + 1);
   };
   // finding every checkbox value
@@ -102,30 +109,40 @@ const AnswerPanel = ({
 
   return (
     <DivSpace direction="vertical">
+      {question.num_expected_answers && (
+        <p>Choose {question.num_expected_answers}</p>
+      )}
       {question.num_expected_answers === 1 ? (
         <Radio.Group
           onChange={onChangeRadio}
           value={currentValue.length !== 0 ? currentValue[0] : ""}
           disabled={mood === 1}
+          style={{ width: "100%" }}
         >
           {question?.answers?.map(({ answer_text }, idx) => (
-            <RadioStyled value={idx} key={idx}>
-              {answer_text}
-            </RadioStyled>
+            <Answer>
+              <RadioStyled value={idx} key={idx}>
+                {renderHTML(answer_text)}
+              </RadioStyled>
+            </Answer>
           ))}
         </Radio.Group>
       ) : (
         <>
           {question?.answers?.map(({ answer_text }, idx) => (
-            <CheckboxStyled
-              value={idx}
-              key={idx}
-              onChange={onChangeCheckbox}
-              checked={findCheckboxValue(idx)}
-              disabled={isCheckedDisabled(idx)}
-            >
-              {answer_text}
-            </CheckboxStyled>
+            <Answer>
+              <CheckboxStyled
+                className="ans-check"
+                value={idx}
+                key={idx}
+                onChange={onChangeCheckbox}
+                checked={findCheckboxValue(idx)}
+                disabled={isCheckedDisabled(idx)}
+                dangerouslySetInnerHTML={{ answer_text }}
+              >
+                {renderHTML(answer_text)}
+              </CheckboxStyled>
+            </Answer>
           ))}
         </>
       )}
