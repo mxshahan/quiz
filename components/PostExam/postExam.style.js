@@ -31,12 +31,19 @@ export const StyledTableRow = styled.div`
   }
   .ant-progress-line {
     width: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .ant-progress-outer {
+      width: 90%;
+    }
     .ant-progress-inner {
       border-radius: 5px;
       width: 88%;
     }
     .ant-progress-text {
       color: black;
+      width: auto;
     }
   }
 `;
