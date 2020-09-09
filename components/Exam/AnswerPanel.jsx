@@ -25,11 +25,11 @@ const AnswerPanel = ({
 }) => {
   const [currentValue, setCurrentValue] = useState([]);
   useEffect(() => {
-    const data = answeredQues.find(
+    const isAns = answeredQues.find(
       (item) => item.item_order === question.item_order
     );
-    if (data) {
-      setCurrentValue(data.correct_answer_ids);
+    if (isAns) {
+      setCurrentValue(isAns.answered_ids);
       setMood(1);
     } else {
       setCurrentValue([]);
@@ -68,18 +68,16 @@ const AnswerPanel = ({
     let isMatched = true;
     let newArray = answeredQues.map((item) => {
       if (item.item_order === question.item_order) {
-        item.correct_answer_ids = currentValue;
+        item.answered_ids = currentValue;
         isMatched = false;
       }
       return item;
     });
-    newArray = newArray.filter(
-      (item) => item?.correct_answer_ids?.length !== 0
-    );
+    newArray = newArray.filter((item) => item?.answered_ids?.length !== 0);
     if (isMatched)
       newArray.push({
         item_order: question.item_order,
-        correct_answer_ids: currentValue,
+        answered_ids: currentValue,
       });
     setAnsweredQues(newArray);
     if (question.item_order + 1 === length) {
@@ -88,6 +86,7 @@ const AnswerPanel = ({
     }
     handleNatigation(question.item_order + 1);
   };
+
   // finding every checkbox value
   const findCheckboxValue = (idx) => {
     const data = currentValue.find((item) => item === idx);

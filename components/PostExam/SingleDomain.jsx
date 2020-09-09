@@ -3,11 +3,11 @@ import { Card, Row, Col } from "antd";
 import {
   SingleDomainTitle,
   DomainProgess,
-  ExamBtnNo,
   AnswerPanel,
   SelectedBtn,
   IconBox,
   ExamAnsBtnNo,
+  ExamBtnWrapper,
 } from "./postExam.style";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { Vote } from "./Vote";
@@ -18,8 +18,8 @@ export const SingleDomain = ({ percent, questions, domainName }) => {
     const data = questions.find((item) => parseInt(item.item_order) === order);
     if (data.answered_ids.length !== data.correct_answer_ids.length)
       return false;
-    var cA = data.answered_ids.slice().sort().join(",");
-    var cB = data.correct_answer_ids.slice().sort().join(",");
+    const cA = data.answered_ids.slice().sort().join(",");
+    const cB = data.correct_answer_ids.slice().sort().join(",");
 
     return cA === cB;
   };
@@ -47,7 +47,7 @@ export const SingleDomain = ({ percent, questions, domainName }) => {
               strokeColor="#FE1575"
               strokeWidth="8"
               type="circle"
-              percent={percent}
+              percent={parseFloat(percent).toFixed(1)}
               width={90}
               strokeLinecap="square"
               trailColor="#E7ECF7"
@@ -71,17 +71,19 @@ export const SingleDomain = ({ percent, questions, domainName }) => {
             doloremque aliquid repellat? Accusamus.
           </p>
           <SingleDomainTitle>Questions</SingleDomainTitle>
-          {questions.map(({ item_order }, idx) => (
-            <ExamAnsBtnNo
-              type="primary"
-              key={item_order}
-              isCorrect={isCorrectBtn(item_order)}
-              isActive={item_order === cntQues.item_order}
-              onClick={() => handleNatigation(idx)}
-            >
-              {item_order + 1}
-            </ExamAnsBtnNo>
-          ))}
+          <ExamBtnWrapper>
+            {questions.map(({ item_order }, idx) => (
+              <ExamAnsBtnNo
+                type="primary"
+                key={item_order}
+                isCorrect={isCorrectBtn(item_order)}
+                isActive={item_order === cntQues.item_order}
+                onClick={() => handleNatigation(idx)}
+              >
+                {item_order + 1}
+              </ExamAnsBtnNo>
+            ))}
+          </ExamBtnWrapper>
         </Card>
       </Col>
       <Col lg={14} md={24} sm={24} xs={24}>
@@ -91,24 +93,28 @@ export const SingleDomain = ({ percent, questions, domainName }) => {
           </SingleDomainTitle>
           <p>{cntQues.question_text}</p>
           <div>
-            {cntQues.answers.map((item, idx) => (
-              <AnswerPanel>
-                <IconBox isSelected={isSelected(idx) || isCorrect(idx)}>
-                  {isCorrect(idx) ? (
-                    <CheckOutlined style={{ color: "#04E088" }} />
-                  ) : (
-                    <CloseOutlined style={{ color: "#FF1575" }} />
+            {cntQues.answers.map((item, idx) => {
+              const isSelected1 = isSelected(idx);
+              const isCorrect1 = isCorrect(idx);
+              return (
+                <AnswerPanel>
+                  <IconBox isSelected={isSelected1 || isCorrect1}>
+                    {isCorrect1 ? (
+                      <CheckOutlined style={{ color: "#04E088" }} />
+                    ) : (
+                      <CloseOutlined style={{ color: "#FF1575" }} />
+                    )}
+                    <p style={{ marginLeft: "15px" }}>{item.answer_text}</p>
+                  </IconBox>
+                  {/* selected button */}
+                  {isSelected1 && (
+                    <div>
+                      <SelectedBtn correct={isCorrect1}>Selected</SelectedBtn>
+                    </div>
                   )}
-                  <p style={{ marginLeft: "15px" }}>{item.answer_text}</p>
-                </IconBox>
-                {/* selected button */}
-                {isSelected(idx) && (
-                  <div>
-                    <SelectedBtn correct={isCorrect(idx)}>Selected</SelectedBtn>
-                  </div>
-                )}
-              </AnswerPanel>
-            ))}
+                </AnswerPanel>
+              );
+            })}
           </div>
           <SingleDomainTitle style={{ margin: "30px 0px 10px" }}>
             Explanation

@@ -4,6 +4,16 @@ import { LikeOutlined } from "@ant-design/icons";
 import { Vote } from "./Vote";
 import { Card, Progress, Button } from "antd";
 
+export const ExamBtnWrapper = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  &::after {
+    content: "";
+    flex: auto;
+  }
+`;
+
 export const StyledTableRow = styled.div`
   display: flex;
   justify-content: space-between;

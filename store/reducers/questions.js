@@ -1,13 +1,17 @@
 // Authentication Constant
-export const LOGOUT_USER = "LOGOUT_USER";
+export const SUBMIT_EXAM = "SUBMIT_EXAM";
 
-const initialState = {};
+const initialState = {
+  duration: "",
+  allQuesitons: [],
+  answeredQues: 0,
+};
 
 export default (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
-    case LOGOUT_USER: {
-      return initialState;
+    case SUBMIT_EXAM: {
+      return { ...initialState, ...payload };
     }
 
     default: {

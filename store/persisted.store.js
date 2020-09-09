@@ -1,10 +1,10 @@
-import { getAuthData, setAuthData } from "../util/session";
+import { getDefaultStore, setDefaultStore } from "../utils/session";
 
-export const saveState = state => {
+export const saveState = (state) => {
   try {
     // Parsing auth data from Redux store
     let stateFilter = state;
-    setAuthData(stateFilter.auth);
+    setDefaultStore(stateFilter.questions);
   } catch (err) {
     // Ignore write error
   }
@@ -13,10 +13,11 @@ export const saveState = state => {
 /* Use an IIFE to export the persisted state in a variable */
 export const persistedState = (() => {
   try {
-    const auth = getAuthData();
-    // if (Object.keys(auth).length === 0) return undefined;
+    const questions = getDefaultStore();
+    console.log(questions)
+    // if (Object.keys(questions).length === 0) return undefined;
     return {
-      auth
+      questions,
     };
   } catch (err) {
     return undefined;

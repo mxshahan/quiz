@@ -1,6 +1,6 @@
-import { LOGOUT_USER } from "../reducers/questions";
+import { SUBMIT_EXAM } from "../reducers/questions";
 
-export const updateSubscriber = (payload) => ({
-  type: LOGOUT_USER,
+export const submitExam = (payload) => ({
+  type: SUBMIT_EXAM,
   payload,
 });

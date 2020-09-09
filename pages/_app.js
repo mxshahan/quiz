@@ -15,13 +15,19 @@ import "react-circular-progressbar/dist/styles.css";
 import "../styles/lastpage.scss";
 
 import "../styles/style.scss";
+import { Provider } from "react-redux";
+import store from "../store";
 
 const OmniducateStudentApp = ({ Component, pageProps, reduxStore, org }) => {
   return (
     <>
-      <Component {...pageProps} />
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>
     </>
   );
 };
+
+// const makeStore = () => store;
 
 export default OmniducateStudentApp;
