@@ -11,7 +11,7 @@ const PostExam = () => {
   const [domain, setDomain] = useState({});
   const [domainKey, setDomainKey] = useState([]);
 
-  const { duration, allQuesitons, answeredQues } = useSelector(
+  const { duration, allQuesitons = [], answeredQues = [] } = useSelector(
     (store) => store.questions
   );
 
@@ -27,8 +27,9 @@ const PostExam = () => {
 
   const calculatePercent = (item) => {
     const length = domain[item]?.length || 0;
-    return (length * 100) / allQuesitons.length;
+    return (length * 100) /domain[item]?.length;
   };
+
   const canculateTotalScore = () => {
     const correctAns = [];
     allQuesitons.map((data) => {
@@ -42,6 +43,7 @@ const PostExam = () => {
     const ret = (correctAns.length * 100) / allQuesitons.length;
     return Number(ret || 0).toFixed(1);
   };
+
   return (
     <PostExamWrapper>
       <Row>

@@ -5,9 +5,13 @@ import { saveState, persistedState } from "./persisted.store";
 
 const isServer = typeof window === undefined;
 
-const composeEnhancer = isServer
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    : compose,
+// const composeEnhancer = isServer
+//     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+//     : compose,
+//   middlewareEnhancer = applyMiddleware(thunk),
+//   composedEnhancers = composeEnhancer(middlewareEnhancer);
+
+const composeEnhancer = compose,
   middlewareEnhancer = applyMiddleware(thunk),
   composedEnhancers = composeEnhancer(middlewareEnhancer);
 
