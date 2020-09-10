@@ -7,7 +7,7 @@ const TableRow = ({ leftText, percent }) => {
     <StyledTableRow>
       <h2 style={{ textTransform: "capitalize" }}>{leftText}</h2>
       <Progress
-        percent={percent}
+        percent={parseFloat(percent).toFixed(1)}
         strokeWidth={20}
         strokeColor={"#FD8A16"}
         strokeLinecap="square"

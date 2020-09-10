@@ -5,31 +5,43 @@ import { PostExamWrapper } from "./postExam.style";
 import { QuickTips } from "./QuickTips";
 import { DomainTable } from "./DomainTable";
 import { SingleDomain } from "./SingleDomain";
-import {
-  questions,
-  total_score,
-  answered_question,
-  total_question,
-  total_time,
-} from "./data.json";
+import { useSelector } from "react-redux";
 
 const PostExam = () => {
   const [domain, setDomain] = useState({});
   const [domainKey, setDomainKey] = useState([]);
+
+  const { duration, allQuesitons, answeredQues } = useSelector(
+    (store) => store.questions
+  );
+
   useEffect(() => {
     const key = "domain";
-    const groupedResult = questions.reduce((rv, x) => {
+    const groupedResult = allQuesitons.reduce((rv, x) => {
       (rv[x[key]] = rv[x[key]] || []).push(x);
       return rv;
     }, {});
     setDomain(groupedResult);
     setDomainKey(Object.keys(groupedResult));
-  }, [questions]);
+  }, [allQuesitons]);
+
   const calculatePercent = (item) => {
     const length = domain[item]?.length || 0;
-    return (length * 100) / total_question;
+    return (length * 100) / allQuesitons.length;
   };
-  console.log({ questions, domain, domainKey });
+  const canculateTotalScore = () => {
+    const correctAns = [];
+    allQuesitons.map((data) => {
+      if (data.answered_ids.length !== data.correct_answer_ids.length)
+        return false;
+      const cA = data.answered_ids.slice().sort().join(",");
+      const cB = data.correct_answer_ids.slice().sort().join(",");
+
+      cA === cB && correctAns.push(true);
+    });
+    const ret = (correctAns.length * 100) / allQuesitons.length;
+    return Number(ret || 0).toFixed(1);
+  };
   return (
     <PostExamWrapper>
       <Row>
@@ -37,10 +49,10 @@ const PostExam = () => {
         <Col span="20">
           <Card>
             <PostExamHeader
-              total_score={total_score}
-              total_question={total_question}
-              answered_question={answered_question}
-              total_time={total_time}
+              total_score={canculateTotalScore()}
+              total_question={allQuesitons.length}
+              answered_question={answeredQues}
+              total_time={duration}
             />
             <QuickTips />
           </Card>

@@ -19,11 +19,6 @@ export const Answer = styled.div`
     box-shadow: 0px 0px 13px 1px #ddd;
   }
 `;
-export const QuestionNumberList = styled.div`
-  background-color: white;
-  padding-top: 20px;
-  padding-bottom: 20px;
-`;
 
 export const Text = styled.h4`
   color: #fc7703;

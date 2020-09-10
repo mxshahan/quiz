@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { CaretLeftOutlined, CaretRightOutlined } from "@ant-design/icons";
-import { Text, QuestionNumberList, ExamBtnNo } from "./exam.style";
+import { Text, ExamBtnNo } from "./exam.style";
 import { Badge, Col, Button, Card } from "antd";
-import Modal from "antd/lib/modal/Modal";
 import { useRouter } from "next/router";
+import { ExamBtnWrapper } from "../PostExam/postExam.style";
 
 const QuestionButtons = ({
   questions,
@@ -11,8 +11,8 @@ const QuestionButtons = ({
   markedQues,
   answeredQues,
   currentQuestion,
+  setShow,
 }) => {
-  const [show, setShow] = useState(false);
   const isMarked = (item_order) => {
     const data = markedQues.find((item) => item === item_order);
     if (data === undefined) return false;
@@ -29,20 +29,22 @@ const QuestionButtons = ({
     <Col lg={8} md={20} sm={20} xs={20}>
       <Card>
         <Text>NAVIGATE</Text>
-        {Array.isArray(questions) &&
-          questions.map((item, idx) => (
-            <Badge dot={isMarked(item.item_order)} offset={[-5, 5]}>
-              <ExamBtnNo
-                type="primary"
-                key={item.item_order}
-                isAnswered={isAnswered(item.item_order)}
-                isActive={isActive(item.item_order)}
-                onClick={() => handleNatigation(item.item_order)}
-              >
-                {idx + 1}
-              </ExamBtnNo>
-            </Badge>
-          ))}
+        <ExamBtnWrapper>
+          {Array.isArray(questions) &&
+            questions.map((item, idx) => (
+              <Badge dot={isMarked(item.item_order)} offset={[-5, 5]}>
+                <ExamBtnNo
+                  type="primary"
+                  key={item.item_order}
+                  isAnswered={isAnswered(item.item_order)}
+                  isActive={isActive(item.item_order)}
+                  onClick={() => handleNatigation(item.item_order)}
+                >
+                  {idx + 1}
+                </ExamBtnNo>
+              </Badge>
+            ))}
+        </ExamBtnWrapper>
         <Button
           type="primary"
           block
@@ -73,20 +75,6 @@ const QuestionButtons = ({
         <CaretLeftOutlined />
         Back
       </Button>
-      <Modal
-        title="Ready to submit exam?"
-        visible={show}
-        onOk={() => route.push("/post-exam")}
-        onCancel={() => setShow(false)}
-        cancelText="Continue exam"
-        okText="Submit exam"
-      >
-        <p>Are you ready to submit exam?</p>
-        <p>You have {markedQues.length} flagged questions</p>
-        <p>
-          You have {questions.length - answeredQues.length} unanswered question
-        </p>
-      </Modal>
     </Col>
   );
 };

@@ -8,6 +8,7 @@ import QuestionButtons from "./QuestionButtons";
 
 import { questions } from "./data.json";
 import renderHTML from "react-render-html";
+import ExamSubmitModal from "./ConfirmModal";
 
 const Exam = () => {
   const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
@@ -15,6 +16,7 @@ const Exam = () => {
   const [markedQues, setMarkedQues] = useState([]);
   const [mood, setMood] = useState(0);
   const [isCrntMarked, setMarked] = useState(false);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     const data = markedQues.find((item) => item === currentQuestion.item_order);
@@ -65,6 +67,14 @@ const Exam = () => {
         markedQues={markedQues}
         answeredQues={answeredQues}
         currentQuestion={currentQuestion}
+        setShow={setShow}
+      />
+      <ExamSubmitModal
+        show={show}
+        setShow={setShow}
+        markedQues={markedQues}
+        questions={questions}
+        answeredQues={answeredQues}
       />
       <Col span="2"></Col>
     </Row>
