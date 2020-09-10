@@ -26,13 +26,12 @@ const PostExam = () => {
   }, [allQuesitons]);
 
   const calculatePercent = (item) => {
-    const correctAns = [];
-    domain[item].map((item) => {
+    const correctAns = domain[item]?.filter((item) => {
       if (item.answered_ids.length !== item.correct_answer_ids.length) return;
       const cA = item.answered_ids.slice().sort().join(",");
       const cB = item.correct_answer_ids.slice().sort().join(",");
 
-      cA === cB && correctAns.push(true);
+      return cA === cB;
     });
 
     return (correctAns.length * 100) / domain[item]?.length;

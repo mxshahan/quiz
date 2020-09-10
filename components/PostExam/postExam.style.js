@@ -116,12 +116,13 @@ export const HeaderWrapper = styled.div`
   &::after {
     position: absolute;
     content: ${({ content }) => `"${content ? content : "Click"}"`};
-    top: 47%;
-    left: 51%;
+    top: 50%;
+    left: 50%;
     transform: translateZ(-1px) translate(-50%, -50%);
     font-size: 185px;
     font-weight: 700;
     color: #f4f4f4;
+    line-height: 30px;
   }
 `;
 

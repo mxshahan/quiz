@@ -12,6 +12,15 @@ export const PostExamHeader = ({
   useEffect(() => {
     setKey(Date.now());
   }, [total_score]);
+
+  const upVote = () => {
+    alert("upVoted");
+  };
+
+  const downVote = () => {
+    alert("Downvoted");
+  };
+
   return (
     <>
       <HeaderWrapper content={total_score + "%"} key={key}>
@@ -22,7 +31,11 @@ export const PostExamHeader = ({
         </p>
       </HeaderWrapper>
       <HeaderVote>
-        <Vote text={"Rate this practice exam"} />
+        <Vote
+          text={"Rate this practice exam"}
+          upVote={upVote}
+          downVote={downVote}
+        />
       </HeaderVote>
     </>
   );
