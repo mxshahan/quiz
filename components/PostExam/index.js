@@ -26,8 +26,16 @@ const PostExam = () => {
   }, [allQuesitons]);
 
   const calculatePercent = (item) => {
-    const length = domain[item]?.length || 0;
-    return (length * 100) / allQuesitons.length;
+    const correctAns = [];
+    domain[item].map((item) => {
+      if (item.answered_ids.length !== item.correct_answer_ids.length) return;
+      const cA = item.answered_ids.slice().sort().join(",");
+      const cB = item.correct_answer_ids.slice().sort().join(",");
+
+      cA === cB && correctAns.push(true);
+    });
+
+    return (correctAns.length * 100) / domain[item]?.length;
   };
   const canculateTotalScore = () => {
     const correctAns = [];
